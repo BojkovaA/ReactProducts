@@ -1,41 +1,26 @@
-
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
-import { useState } from 'react';
-import ListProductComponent from './components/ListProductsComponent';
-import SingleProductComponent from './components/SingleProductComponent';
-import { ToastContainer} from 'react-toastify';
+import TodoInputComponent from './components/TodoInputComponent'
+import TodoListComponent from './components/TodoListComponent'
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
-  const [allProducts, setAllProducts]= useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [todoItems, setTodoItems] = useState([]);
 
   useEffect(()=>{
-    fetch('https://dummyjson.com/products')
-    .then(res => res.json())
-    .then((data)=> {setAllProducts(data.products)
-      setIsLoading(true)
-    });
+    console.log(todoItems)
+  },[todoItems])
 
-  }, [])
-
-
-
-
-
+  
   return (
     <>
-      <div>
-        <h1>radiii</h1>
-        <div className='flex flex-wrap gap-20 items-center justify-center'>
-          {isLoading ? allProducts.map((product)=>{
-            return <ListProductComponent key={product.id} product={product}/>
-          }) : <h2>Loading...</h2>}
-        </div>
+      <div className='container mx-auto flex flex-col items-center justify-center'>
+        <h1 className='text-[60px] text-green-600 font-extrabold my-[30px]'>TODO APP</h1>
+        <TodoInputComponent todoItems={todoItems} setTodoItems={setTodoItems}/> 
+        <TodoListComponent todoItems={todoItems} setTodoItems={setTodoItems}/>
       </div>
-      <SingleProductComponent/>
-      <ToastContainer/>
+      <ToastContainer></ToastContainer>
     </>
   )
 }
