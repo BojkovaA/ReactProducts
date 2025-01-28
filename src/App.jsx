@@ -1,36 +1,31 @@
 
-import { useEffect, useState } from 'react';
 import './App.css'
 import { ToastContainer } from 'react-toastify';
-import ProductService from '../src/services/productService.js'
 import axios from 'axios';
+import useFetch from './utils/useFetch.js';
+import CardComponent from './components/cardComponent.jsx';
+import NavBarComponent from './components/NavBarComponent.jsx';
 
 axios.defaults.baseURL="https://dummyjson.com"
 
 function App() {
 
-  const [name, setName] = useState('Tihomir')
-  // console.log(name)
-
-  function changeName(){
-    setName('Angela')
-  }
-
-  useEffect(()=>{
-    ProductService.getSingleProduct()
-    .then(res=> console.log(res.data))
-    .catch(err=>console.log(err))
-  }, [])
+  const {data, isLoading} =useFetch(' ');
   
   return (
-    <>
-      <div className='container mx-auto flex flex-col items-center justify-center'>
-        <h1 className='text-[60px] text-green-600 font-extrabold my-[30px]'>TODO APP</h1>
+    
+      <div className='container mx-auto'>
+        <NavBarComponent/>
+        <div className='flex flex-wrap gap-[20px] items-center justify-center mt-[50px]'>
+          {isLoading? data.map((product)=>{
+            return <CardComponent key={product.id} product={product}/>
+          }) : <h2>Loading...</h2>}
+        </div>
+
+        <ToastContainer/>
       </div>
-      <h1>{name}</h1>
-      <button onClick={changeName}>Change name</button>
-      <ToastContainer/>
-    </>
+      
+    
   )
 }
 
