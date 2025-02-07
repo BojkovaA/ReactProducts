@@ -3,24 +3,43 @@ import { TiThMenu } from "react-icons/ti";
 import { MdClose } from "react-icons/md";
 
 import { useState } from 'react';
+//import { useDispatch } from 'react-redux';
+//import { changeActiveAction, changeNameAction } from '../store/productSlice';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function NavBarComponent(){
+
+    const {cart} = useSelector(state => state.productStore)
    
     const [toggle, setToggle] = useState(false);
+    //const dispatch = useDispatch();
+
+
 
     function handelToggle(){
         setToggle(!toggle)
     }
+
+    // function handleCard(){
+    //     dispatch(changeActiveAction())
+    // }
 
     return<>
     <div className='h-[120px] flex items-center justify-between px-[20px]'>
         <img src={profile} alt="" className='w-[100px] h-[100px]'/> 
         {/* DESKTOP VIEW */}
         <ul className='items-center gap-[10px] hidden lg:flex'>
-            <li className='text-[20px] text-blue-500'>Home</li>
-            <li className='text-[20px] text-blue-500'>About Us</li>
-            <li className='text-[20px] text-blue-500'>Contacts</li>
+            <Link to="/" className='text-[20px] text-blue-500'>Home</Link>
+            <Link to="/products" className='text-[20px] text-blue-500'>Products</Link>
+            <Link className='text-[20px] text-blue-500'>Contacts</Link>
         </ul>
+
+        <div>
+            <span>{cart.length}</span>
+        </div>
+
+        {/* <button onClick={handleCard}>Show Card</button> */}
         
         {/* FORM MOBILE VIEW */}
         <div className='flex lg:hidden '>

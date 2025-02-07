@@ -1,27 +1,35 @@
 
 import './App.css'
 import { ToastContainer } from 'react-toastify';
-import axios from 'axios';
-import useFetch from './utils/useFetch.js';
-import CardComponent from './components/cardComponent.jsx';
+import axios from "axios";
 import NavBarComponent from './components/NavBarComponent.jsx';
+import { Outlet } from 'react-router-dom';
+import { useEffect } from 'react';
+import productService from './services/productService';
+import { useDispatch } from 'react-redux';
+import { saveProductAction } from './store/productSlice.js';
 
 axios.defaults.baseURL="https://dummyjson.com"
 
 function App() {
 
-  const {data, isLoading} =useFetch(' ');
+ const dispatch = useDispatch();
+
+ useEffect(()=>{
+  productService.getAllProducts().
+  then((response) => {
+    console.log(response.data.products)
+    dispatch(saveProductAction(response.data.products))
+  }).catch(err => console.log(err))
+ },[])
   
   return (
     
       <div className='container mx-auto'>
         <NavBarComponent/>
-        <div className='flex flex-wrap gap-[20px] items-center justify-center mt-[50px]'>
-          {isLoading? data.map((product)=>{
-            return <CardComponent key={product.id} product={product}/>
-          }) : <h2>Loading...</h2>}
-        </div>
-
+       
+       <Outlet/>
+        
         <ToastContainer/>
       </div>
       

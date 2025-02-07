@@ -1,7 +1,18 @@
+import { useDispatch } from "react-redux";
+import { saveInCartAction } from "../store/productSlice";
 
 
 function CardComponent({product}){
-    return <div>
+
+
+    const dispatch = useDispatch();
+
+    function handleCart(product){
+        dispatch(saveInCartAction(product))
+    }
+
+
+    return (
     <div className="border border-orange-500 w-[300px]">
         <div className="relative">
             <img src={product.thumbnail} alt="" 
@@ -14,9 +25,12 @@ function CardComponent({product}){
             <h2>{product.price}</h2>
             <button className="px-[20px] py-[10px] bg-orange-500 text-white rounded-[10px] hover:scale-105 transition-all duration-300
             hover:bg-blue-500">View more</button>
+
+            <button className="px-[20px] py-[10px] bg-orange-500 text-white rounded-[10px] hover:scale-105 transition-all duration-300
+            hover:bg-blue-500" onClick={()=>handleCart(product)}>Add to Cart</button>
         </div>
     </div>
-    </div>
+    )
 }
 
 export default CardComponent;

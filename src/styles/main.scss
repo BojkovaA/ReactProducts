@@ -1,0 +1,21 @@
+$whiteColor: #6fabfff1;
+
+.wrapper{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    &_card{
+        width: 300px;
+        border: 1px solid dodgerblue;
+        border-radius: 15px;
+        padding: 10px;
+        h2{
+            color: $whiteColor; 
+        }
+    }
+}
