@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 
 function NavBarComponent(){
 
+    let imageUrl = localStorage.getItem('image');
+
     const {cart} = useSelector(state => state.productStore)
    
     const [toggle, setToggle] = useState(false);
@@ -32,11 +34,12 @@ function NavBarComponent(){
         <ul className='items-center gap-[10px] hidden lg:flex'>
             <Link to="/" className='text-[20px] text-blue-500'>Home</Link>
             <Link to="/products" className='text-[20px] text-blue-500'>Products</Link>
-            <Link className='text-[20px] text-blue-500'>Contacts</Link>
+            <Link to="/register" className='text-[20px] text-blue-500'>Register</Link>
         </ul>
 
         <div>
             <span>{cart.length}</span>
+            <img src={imageUrl} alt="dsds" className='w-[100px] h-[100px] object-cover rounded'/>
         </div>
 
         {/* <button onClick={handleCard}>Show Card</button> */}
